@@ -4,12 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="styles.css" href="styles.css">
+    <link href="styles.css" rel="stylesheet" >
     <script src="script.js" defer></script>
     <title>Tic Tac Toe</title>
 </head>
 <body>
     <div id="gameGrid">
+        <div id="0" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="1" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="2" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="3" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="4" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="5" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="6" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="7" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
+        <div id="8" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
     </div>
+    <button id="playerSelectX" onclick="displayController.playerSelectX()">x</button>
+    <button id="playerSelectO" onclick="displayController.playerSelectO()">o</button>
+
 </body>
 </html>
