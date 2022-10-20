@@ -6,7 +6,9 @@
     height: 500px; 
     width: 600px;
 }
-
+#header {
+    height: 20px;
+}
 .gameBox {
     display: flex;
     justify-content: center;
