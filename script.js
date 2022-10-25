@@ -82,13 +82,14 @@ const displayController = {
         const winArray = this.winConditions;
         const player = gameBoardObject.player;
         const opponent = gameBoardObject.opponent;
-        let winner = document.getElementById('header').innerText;
+        let winner = '';
 
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 console.log(boardArray[i[0]]);
                 document.getElementById('header').innerText = `The winner is ${boardArray[i[0]]}`;
-            } else if (!boardArray.includes('')) {
+                winner = `${boardArray[i[0]]}`;
+            } else if (!boardArray.includes('') && winner == '') {
                 document.getElementById('header').innerText = "It's a tie.";
             //needs to check for a tie below
             // else if (boardArray[i] !== '') {
