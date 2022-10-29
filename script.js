@@ -34,10 +34,10 @@ const gameBoardObject = {
         //inserts choice into div && counts rounds
         if (selectedDiv.innerText == '' && this.currentRound % 2 == 0) {
             selectedDiv.innerText = gameBoardObject.player;
-            this.currentRound =  this.currentRound + 1;
-        } else if (selectedDiv.innerText =='') {
+            this.currentRound = this.currentRound + 1;
+        } else if (selectedDiv.innerText == '') {
             selectedDiv.innerText = gameBoardObject.opponent;
-            this.currentRound =  this.currentRound + 1;
+            this.currentRound = this.currentRound + 1;
         }
 
         //connects DOM to gameboard array && alternates rounds w/ round counter
@@ -67,6 +67,7 @@ const playerFactory = (choice, score) => {
 
 //Display 
 const displayController = {
+
     score: '',
     playerSelectX: function() {
         gameBoardObject.player = 'x';
@@ -79,9 +80,6 @@ const displayController = {
     winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [3,5,7], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard; //shortened reference
-        const winArray = this.winConditions;
-        const player = gameBoardObject.player;
-        const opponent = gameBoardObject.opponent;
         let winner = '';
 
         this.winConditions.forEach(i=>{
@@ -91,9 +89,8 @@ const displayController = {
                 winner = `${boardArray[i[0]]}`;
             } else if (!boardArray.includes('') && winner == '') {
                 document.getElementById('header').innerText = "It's a tie.";
-            //needs to check for a tie below
-            // else if (boardArray[i] !== '') {
-            //     document.getElementById('header').innerText = "It's a tie.";
+            } else if (!boardArray.includes('') && winner !== '') {
+            return
             }
         })
     }
