@@ -40,6 +40,13 @@ const gameBoardObject = {
             this.currentRound = this.currentRound + 1;
         }
 
+        // Specify color of selection, blue for 'x', red for 'o'
+        if (selectedDiv.innerText == 'x') {
+            selectedDiv.style.color = 'blue';
+        } else {
+            selectedDiv.style.color = 'red';
+        }
+        
         //connects DOM to gameboard array && alternates rounds w/ round counter
         for (let i=0; i < gameBoardObject.gameBoard.length; i++) {
             if (i === selectedDivId && gameBoardObject.gameBoard[i] == '' && this.currentRound % 2 !== 0 ) {
