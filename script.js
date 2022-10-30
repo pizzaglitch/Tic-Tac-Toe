@@ -1,10 +1,12 @@
 /*
 8/16 to do
 alternate between player & opponent choice by round - did it ! via modulo
-
+8/29 finish reset. need to clear divs
 */
+
 const gameGrid = document.querySelector('#gameGrid');
 const gameBox = document.querySelectorAll('.gameBox');
+const gameBoxArray = [...gameBox];
 //Gameboard Object 
 const gameBoardObject = {
     gameBoard: ['','','',
@@ -15,18 +17,7 @@ const gameBoardObject = {
     currentRound: 0,
     playerCounter: 0,
     opponentCounter: 0,
-    // displayGameBoard: function() {
-        //Place gameBoard array elements inside divs
-        // for (let i = 0; i < gameBoardObject.gameBoard.length; i++) {
-        //     const newDiv = document.createElement('div');
-        //     newDiv.id = i; 
-        //     newDiv.className = 'gameBox';
-        
-                   
-        //     // });
-        //     gameGrid.appendChild(newDiv);
-        // }
-    // },
+
     displayPlayerSelection: function(event) {
         const selectedDiv = event.currentTarget;
         const selectedDivId = Number(event.currentTarget.id); 
@@ -46,7 +37,7 @@ const gameBoardObject = {
         } else {
             selectedDiv.style.color = 'red';
         }
-        
+
         //connects DOM to gameboard array && alternates rounds w/ round counter
         for (let i=0; i < gameBoardObject.gameBoard.length; i++) {
             if (i === selectedDivId && gameBoardObject.gameBoard[i] == '' && this.currentRound % 2 !== 0 ) {
@@ -58,24 +49,15 @@ const gameBoardObject = {
         displayController.detectWinner();
     }
 };
-// gameBoardObject.displayGameBoard();
 
 /* 
 console.log(gameBoardObject.gameBoard)
 console.log(gameBoardObject.displayPlayerSelection.selectDivId) 
 */
 
-// player creator
-const playerFactory = (choice, score) => {
-    this.choice = choice;
-
-        return {choice, score};
-}
-
 //Display 
 const displayController = {
-
-    score: '',
+    Player1: gameBoardObject.player,
     playerSelectX: function() {
         gameBoardObject.player = 'x';
         gameBoardObject.opponent = 'o';
@@ -84,11 +66,10 @@ const displayController = {
         gameBoardObject.player = 'o';
         gameBoardObject.opponent = 'x';
     },
-    winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [3,5,7], [0,3,6], [1,4,7], [2,5,8]],
+    winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard; //shortened reference
         let winner = '';
-
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 console.log(boardArray[i[0]]);
@@ -100,5 +81,13 @@ const displayController = {
             return
             }
         })
-    }
+    },
+    resetGame: function() {
+        for (let i=0; i < gameBox.length; i++) {
+            gameBox[i].innerText = '';
+        };
+        gameBoardObject.gameBoard = ['','','',
+                                     '','','',
+                                     '','',''];                               
+    }    
 }
