@@ -26,10 +26,10 @@ const gameBoardObject = {
         const selectedDivId = Number(event.currentTarget.id); 
 
         //inserts choice into div && counts rounds
-        if (selectedDiv.innerText == '' && this.currentRound % 2 == 0) {
+        if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && gameBoardObject.player !== '') {
             selectedDiv.innerText = gameBoardObject.player;
             this.currentRound = this.currentRound + 1;
-        } else if (selectedDiv.innerText == '') {
+        } else if (selectedDiv.innerText == '' && gameBoardObject.player !== '') {
             selectedDiv.innerText = gameBoardObject.opponent;
             this.currentRound = this.currentRound + 1;
         }
