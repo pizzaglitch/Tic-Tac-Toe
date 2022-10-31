@@ -18,8 +18,6 @@ const gameBoardObject = {
     player: '',
     opponent: '',
     currentRound: 0,
-    playerCounter: 0,
-    opponentCounter: 0,
 
     displayPlayerSelection: function(event) {
         const selectedDiv = event.currentTarget;
@@ -35,9 +33,9 @@ const gameBoardObject = {
         }
 
         // Specify color of selection, blue for 'x', red for 'o'
-        if (selectedDiv.innerText == 'X') {
+        if (selectedDiv.innerText == 'X' && gameBoardObject.player !== '') {
             selectedDiv.style.color = 'blue';
-        } else {
+        } else if (selectedDiv.innerText == 'O' && gameBoardObject.player !== '') {
             selectedDiv.style.color = 'red';
         }
 
@@ -90,6 +88,9 @@ const displayController = {
         };
         gameBoardObject.gameBoard = ['','','',
                                      '','','',
-                                     '','',''];                               
+                                     '','','']; 
+        gameBoardObject.player = '';
+        gameBoardObject.opponent = '';
+        gameBoardObject.currentRound = 0;                              
     }    
 }
