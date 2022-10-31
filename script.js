@@ -1,12 +1,15 @@
 /*
 8/16 to do
 alternate between player & opponent choice by round - did it ! via modulo
-8/29 finish reset. need to clear divs
+8/29 finish reset. need to clear divs done
+If you click x, reset game, click x again, it makes the player o instead. 
+alternates player choice no matter the selection
+If you click the square, then select a shape, it also places the opposite
+issue: game registers clicks as piece placements at all times
 */
 
 const gameGrid = document.querySelector('#gameGrid');
 const gameBox = document.querySelectorAll('.gameBox');
-const gameBoxArray = [...gameBox];
 //Gameboard Object 
 const gameBoardObject = {
     gameBoard: ['','','',
@@ -21,7 +24,7 @@ const gameBoardObject = {
     displayPlayerSelection: function(event) {
         const selectedDiv = event.currentTarget;
         const selectedDivId = Number(event.currentTarget.id); 
-        
+
         //inserts choice into div && counts rounds
         if (selectedDiv.innerText == '' && this.currentRound % 2 == 0) {
             selectedDiv.innerText = gameBoardObject.player;
@@ -32,7 +35,7 @@ const gameBoardObject = {
         }
 
         // Specify color of selection, blue for 'x', red for 'o'
-        if (selectedDiv.innerText == 'x') {
+        if (selectedDiv.innerText == 'X') {
             selectedDiv.style.color = 'blue';
         } else {
             selectedDiv.style.color = 'red';
@@ -57,14 +60,13 @@ console.log(gameBoardObject.displayPlayerSelection.selectDivId)
 
 //Display 
 const displayController = {
-    Player1: gameBoardObject.player,
     playerSelectX: function() {
-        gameBoardObject.player = 'x';
-        gameBoardObject.opponent = 'o';
+        gameBoardObject.player = 'X';
+        gameBoardObject.opponent = 'O';
     },
     playerSelectO: function() {
-        gameBoardObject.player = 'o';
-        gameBoardObject.opponent = 'x';
+        gameBoardObject.player = 'O';
+        gameBoardObject.opponent = 'X';
     },
     winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
