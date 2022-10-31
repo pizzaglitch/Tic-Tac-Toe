@@ -8,11 +8,18 @@
     <script src="script.js" defer></script>
     <title>Tic Tac Toe</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@900&display=swap');
     </style>
 </head>
 <body>
-    <div id="header">
+    <div id="gameMenu">
+        <div class="welcome">Tic-Tac-Toe</div>
+        <button id="playerSelectX" onclick="displayController.playerSelectX()">Player 1: (X)</button>
+        <button id="playerSelectO" onclick="displayController.playerSelectO()">Player 2: (O)</button>
+        <button id="startGame" onclick="displayController.showGrid()">Start Game</button>
+
+    </div>
+    <div id="gameOutcome">
         
     </div>
     <div id="gameDisplay">
@@ -28,10 +35,10 @@
             <div id="8" class="gameBox" onclick="gameBoardObject.displayPlayerSelection(event)"></div>
         </div>
     </div>
-    <div id="playerButtons">
+    <!-- <div id="playerButtons">
         <button id="playerSelectX" onclick="displayController.playerSelectX()">x</button>
         <button id="playerSelectO" onclick="displayController.playerSelectO()">o</button>
         <button id="resetGame" onclick="displayController.resetGame()">reset</button>
-    </div>
+    </div> -->
 </body>
 </html>

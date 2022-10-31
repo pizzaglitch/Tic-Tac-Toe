@@ -1,16 +1,5 @@
-/*
-8/16 to do
-alternate between player & opponent choice by round - did it ! via modulo
-8/29 finish reset. need to clear divs done
-If you click x, reset game, click x again, it makes the player o instead. 
-alternates player choice no matter the selection
-If you click the square, then select a shape, it also places the opposite
-issue: game registers clicks as piece placements at all times
-*/
-
-const gameGrid = document.querySelector('#gameGrid');
 const gameBox = document.querySelectorAll('.gameBox');
-//Gameboard Object 
+
 const gameBoardObject = {
     gameBoard: ['','','',
                 '','','',
@@ -34,9 +23,9 @@ const gameBoardObject = {
 
         // Specify color of selection, blue for 'x', red for 'o'
         if (selectedDiv.innerText == 'X' && gameBoardObject.player !== '') {
-            selectedDiv.style.color = 'blue';
+            selectedDiv.style.color = '#1887db';
         } else if (selectedDiv.innerText == 'O' && gameBoardObject.player !== '') {
-            selectedDiv.style.color = 'red';
+            selectedDiv.style.color = '#e03c26';
         }
 
         //connects DOM to gameboard array && alternates rounds w/ round counter
@@ -51,12 +40,6 @@ const gameBoardObject = {
     }
 };
 
-/* 
-console.log(gameBoardObject.gameBoard)
-console.log(gameBoardObject.displayPlayerSelection.selectDivId) 
-*/
-
-//Display 
 const displayController = {
     playerSelectX: function() {
         gameBoardObject.player = 'X';
@@ -73,10 +56,10 @@ const displayController = {
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 console.log(boardArray[i[0]]);
-                document.getElementById('header').innerText = `The winner is ${boardArray[i[0]]}`;
+                document.getElementById('gameOutcome').innerText = `The winner is ${boardArray[i[0]]}`;
                 winner = `${boardArray[i[0]]}`;
             } else if (!boardArray.includes('') && winner == '') {
-                document.getElementById('header').innerText = "It's a tie.";
+                document.getElementById('gameOutcome').innerText = "It's a tie.";
             } else if (!boardArray.includes('') && winner !== '') {
             return
             }
@@ -92,5 +75,17 @@ const displayController = {
         gameBoardObject.player = '';
         gameBoardObject.opponent = '';
         gameBoardObject.currentRound = 0;                              
-    }    
+    }, 
+    hideOnLoad: window.onload = function () {
+        document.getElementById('gameDisplay').style.display = 'none';
+    },
+    showGrid: function () {
+        document.getElementById('gameDisplay').style.display = 'flex';
+        document.getElementById('playerSelectX').style.display = 'none';
+        document.getElementById('playerSelectO').style.display = 'none';
+        document.getElementById('startGame').style.display = 'none';
+
+
+    }
 }
+

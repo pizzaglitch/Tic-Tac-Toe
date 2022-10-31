@@ -3,6 +3,10 @@
     padding: 0;
 }
 
+#gameOutcome {
+    height: 20px;
+}
+
 #gameGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -13,9 +17,7 @@
     border-radius: 10px;
     background-color: #585858;
 }
-#header {
-    height: 20px;
-}
+
 .gameBox {
     display: flex;
     justify-content: center;
