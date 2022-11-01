@@ -17,22 +17,30 @@
     font-size: 50px;
     gap: 20px;
 }
+#playerSelectX, #playerSelectO {
+    justify-content: center;
+    width: 50px;
+    font-size: 20px;
+}
 #playerSelectX {
     color: #1887db;
 }
 
 #playerSelectO {
-    color: #e03c26
+    color: #e03c26;
 }
 
-button {
-    padding: 10px; 
+#startGame {
+    align-items: center;
 }
+button {
+    padding: 5px; 
+}
+
 button:active {
     border: 1px solid black;
     box-shadow: inset 0 0 5px #c1c1c1;
 }
-
 
 #gameOutcome {
     display: flex;
