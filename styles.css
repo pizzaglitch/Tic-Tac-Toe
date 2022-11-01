@@ -17,11 +17,13 @@
     font-size: 50px;
     gap: 20px;
 }
+
 #playerSelectX, #playerSelectO {
     justify-content: center;
     width: 50px;
     font-size: 20px;
 }
+
 #playerSelectX {
     color: #1887db;
 }
@@ -33,6 +35,7 @@
 #startGame {
     align-items: center;
 }
+
 button {
     padding: 5px; 
 }
@@ -40,6 +43,7 @@ button {
 button:active {
     border: 1px solid black;
     box-shadow: inset 0 0 5px #c1c1c1;
+    border-radius: 2.5px;
 }
 
 #gameOutcome {
@@ -53,6 +57,7 @@ button:active {
     justify-content: center;
     margin: 10px;
 }
+
 #gameGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -74,12 +79,10 @@ button:active {
     box-shadow: inset 0 0 15px black;
     background-color: #585858;
     border: 1px solid black;
-    /* text-shadow: 0 5px 5px black; */
     text-shadow: 3px 3px 3px black, -3px -3px 3px black
-
 }
 
-#gameDisplay{
+#gameDisplay {
     display: flex;
     justify-content: center;
 }

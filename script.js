@@ -55,10 +55,14 @@ const displayController = {
         const boardArray = gameBoardObject.gameBoard; //shortened reference
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
-                console.log(boardArray[i[0]]);
-                document.getElementById('gameOutcome').innerText = `The winner is ${boardArray[i[0]]}`;
+                // document.getElementById('gameOutcome').innerText = `The winner is ${boardArray[i[0]]}`;
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
+                if(gameBoardObject.winner == gameBoardObject.player) {
+                    document.getElementById('gameOutcome').innerText = `Player 1 wins!`;
+                } else {
+                    document.getElementById('gameOutcome').innerText = `Player 2 wins!`;
+                }
             } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
                 document.getElementById('gameOutcome').innerText = "It's a tie.";
                 gameBoardObject.winner = 'none';
