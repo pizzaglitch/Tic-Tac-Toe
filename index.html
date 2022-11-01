@@ -12,15 +12,13 @@
     </style>
 </head>
 <body>
+    <div id="welcome">Tic-Tac-Toe</div>
+    <div id="gameOutcome"></div>
     <div id="gameMenu">
-        <div class="welcome">Tic-Tac-Toe</div>
         <button id="playerSelectX" onclick="displayController.playerSelectX()">Player 1: (X)</button>
         <button id="playerSelectO" onclick="displayController.playerSelectO()">Player 2: (O)</button>
         <button id="startGame" onclick="displayController.showGrid()">Start Game</button>
-
-    </div>
-    <div id="gameOutcome">
-        
+        <button id="newGame" onclick="displayController.newGame()">New Game</button>
     </div>
     <div id="gameDisplay">
         <div id="gameGrid">

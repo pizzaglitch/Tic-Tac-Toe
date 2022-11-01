@@ -1,12 +1,50 @@
 * {
     margin: 0; 
     padding: 0;
+    font-family: 'Nunito', sans-serif;
+
+}
+#welcome {
+    display: flex;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 50px;
+}
+#gameMenu {
+    display: flex;
+    justify-content: center;
+    font-family: 'Nunito', sans-serif;
+    font-size: 50px;
+    gap: 20px;
+}
+#playerSelectX {
+    color: #1887db;
 }
 
+#playerSelectO {
+    color: #e03c26
+}
+
+button {
+    padding: 10px; 
+}
+button:active {
+    border: 1px solid black;
+    box-shadow: inset 0 0 5px #c1c1c1;
+}
+
+
 #gameOutcome {
+    display: flex;
+    justify-content: center;
     height: 20px;
 }
 
+#newGame {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
 #gameGrid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -22,7 +60,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 200px;
+    font-size: 180px;
     height: 180px;
     font-family: 'Nunito', sans-serif;
     box-shadow: inset 0 0 15px black;
@@ -33,7 +71,7 @@
 
 }
 
-#gameDisplay, #playerButtons {
+#gameDisplay{
     display: flex;
     justify-content: center;
 }

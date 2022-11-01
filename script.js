@@ -1,3 +1,5 @@
+// To-Do: Modify game winning message 
+
 const gameBox = document.querySelectorAll('.gameBox');
 
 const gameBoardObject = {
@@ -7,11 +9,10 @@ const gameBoardObject = {
     player: '',
     opponent: '',
     currentRound: 0,
-
+    winner: '',
     displayPlayerSelection: function(event) {
         const selectedDiv = event.currentTarget;
         const selectedDivId = Number(event.currentTarget.id); 
-
         //inserts choice into div && counts rounds
         if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && gameBoardObject.player !== '') {
             selectedDiv.innerText = gameBoardObject.player;
@@ -52,20 +53,22 @@ const displayController = {
     winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard; //shortened reference
-        let winner = '';
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 console.log(boardArray[i[0]]);
                 document.getElementById('gameOutcome').innerText = `The winner is ${boardArray[i[0]]}`;
-                winner = `${boardArray[i[0]]}`;
-            } else if (!boardArray.includes('') && winner == '') {
+                gameBoardObject.winner = `${boardArray[i[0]]}`;
+                document.getElementById('newGame').style.display = 'flex';  
+            } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
                 document.getElementById('gameOutcome').innerText = "It's a tie.";
-            } else if (!boardArray.includes('') && winner !== '') {
+                gameBoardObject.winner = 'none';
+                document.getElementById('newGame').style.display = 'flex';  
+            } else if (!boardArray.includes('') && gameBoardObject.winner !== '') {
             return
             }
         })
     },
-    resetGame: function() {
+    newGame: function() {
         for (let i=0; i < gameBox.length; i++) {
             gameBox[i].innerText = '';
         };
@@ -74,18 +77,27 @@ const displayController = {
                                      '','','']; 
         gameBoardObject.player = '';
         gameBoardObject.opponent = '';
-        gameBoardObject.currentRound = 0;                              
+        gameBoardObject.currentRound = 0;  
+        gameBoardObject.winner = '';  
+        document.getElementById('playerSelectX').style.display = 'flex';
+        document.getElementById('playerSelectO').style.display = 'flex';
+        document.getElementById('startGame').style.display = 'flex';
+        document.getElementById('newGame').style.display = 'none';
+        document.getElementById('gameOutcome').innerText = '';
+        document.getElementById('gameDisplay').style.display = 'none';
+
     }, 
     hideOnLoad: window.onload = function () {
         document.getElementById('gameDisplay').style.display = 'none';
+        document.getElementById('newGame').style.display = 'none';
     },
     showGrid: function () {
-        document.getElementById('gameDisplay').style.display = 'flex';
-        document.getElementById('playerSelectX').style.display = 'none';
-        document.getElementById('playerSelectO').style.display = 'none';
-        document.getElementById('startGame').style.display = 'none';
-
-
-    }
+        if (gameBoardObject.player !== '' && gameBoardObject.opponent !== '') {
+            document.getElementById('playerSelectX').style.display = 'none';
+            document.getElementById('playerSelectO').style.display = 'none';
+            document.getElementById('startGame').style.display = 'none'
+            document.getElementById('gameDisplay').style.display = 'flex';
+        }
+    },
 }
 
