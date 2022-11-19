@@ -102,7 +102,7 @@ const displayController = {
                 document.getElementById('newGame').style.display = 'flex';  
                 if(gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
                     document.getElementById('gameOutcome').innerText = `Player 1 wins!`;
-                } else if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
+                } else if (gameBoardObject.winner == gameBoardObject.opponent && gameBoardObject.compChoice == '') {
                     document.getElementById('gameOutcome').innerText = `Player 2 wins!`; 
                 } else if (gameBoardObject.winner == gameBoardObject.player) {
                     document.getElementById('gameOutcome').innerText = `Human wins!`;
