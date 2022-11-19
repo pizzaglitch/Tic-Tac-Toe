@@ -1,9 +1,7 @@
 // To-Do: Modify game winning message 
-//If playing against AI, player chooses final space: the winning space, and it (incorrectly) says its a tie
-// The reason for this is because my tie outcome conditional statement checks if gameBoard has no empty spaces, 
-// error only occurs sometimes, why?
-//tie game is broken
-
+// If playing against AI: two slots left. If either player or AI chooses, either of them will win. Player's turn and they choose
+// a winning piece: they should win. However, if AI chooses their winning spot after, updates to computer win
+// unsure how to test for this
 
 const gameBox = document.querySelectorAll('.gameBox');
 const gameBoxArray = [...gameBox];
@@ -103,7 +101,7 @@ const displayController = {
                     document.getElementById('gameOutcome').innerText = `Player 2 wins!`; 
                 } else if (gameBoardObject.winner == gameBoardObject.player) {
                     document.getElementById('gameOutcome').innerText = `Human wins!`;
-                } else {
+                } else if (gameBoardObject.winner == gameBoardObject.opponent) {
                     document.getElementById('gameOutcome').innerText = `Computer wins!`;
 
                 }
