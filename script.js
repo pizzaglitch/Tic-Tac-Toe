@@ -1,26 +1,61 @@
 // To-Do: Modify game winning message 
+//Empty slots splice works. 
+
 
 const gameBox = document.querySelectorAll('.gameBox');
+const gameBoxArray = [...gameBox];
 
 const gameBoardObject = {
     gameBoard: ['','','',
                 '','','',
-                '','',''],             
+                '','',''],
+    emptySlots: [0,1,2,3,4,5,6,7,8],
+    takenSlots: [],
     player: '',
     opponent: '',
     currentRound: 0,
     winner: '',
+    compChoice: '',
     displayPlayerSelection: function(event) {
+        const compChoice = gameBoardObject.compChoice;
         const selectedDiv = event.currentTarget;
         const selectedDivId = Number(event.currentTarget.id); 
+        const correspondingUserIndex = this.emptySlots.indexOf(selectedDivId)
         //inserts choice into div && counts rounds
-        if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && gameBoardObject.player !== '') {
+        if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && compChoice == '') {
+            console.log(selectedDivId);
+            this.emptySlots.splice(correspondingUserIndex, 1);
+            console.log(this.emptySlots);
+            
             selectedDiv.innerText = gameBoardObject.player;
-            this.currentRound = this.currentRound + 1;
-        } else if (selectedDiv.innerText == '' && gameBoardObject.player !== '') {
+            this.currentRound += 1;
+        } else if (selectedDiv.innerText == '' && compChoice == '') {    
+            this.emptySlots.splice(correspondingUserIndex, 1);
+            
+
             selectedDiv.innerText = gameBoardObject.opponent;
-            this.currentRound = this.currentRound + 1;
-        }
+            this.currentRound += 1;
+        } else if (compChoice !== '') {
+            this.currentRound += 2;
+            selectedDiv.innerText = gameBoardObject.player;
+            this.emptySlots.splice(correspondingUserIndex, 1);
+            const randomChoice = this.emptySlots[Math.floor(Math.random() * this.emptySlots.length)];
+            const correspondingCompIndex = this.emptySlots.indexOf(randomChoice)
+
+            // const compSelection = randomChoice();
+
+            console.log(randomChoice);
+
+            //randomly places selections
+           for (let i=0; i < gameBoardObject.gameBoard.length; i++) { 
+                    if (gameBox[i].id == randomChoice) {
+                        gameBoardObject.gameBoard[i] = gameBoardObject.opponent;
+                        gameBox[i].innerText = gameBoardObject.opponent;
+                        this.emptySlots.splice(correspondingCompIndex, 1);
+                    }
+           }
+
+        };
 
         // Specify color of selection, blue for 'x', red for 'o'
         if (selectedDiv.innerText == 'X' && gameBoardObject.player !== '') {
@@ -31,14 +66,19 @@ const gameBoardObject = {
 
         //connects DOM to gameboard array && alternates rounds w/ round counter
         for (let i=0; i < gameBoardObject.gameBoard.length; i++) {
-            if (i === selectedDivId && gameBoardObject.gameBoard[i] == '' && this.currentRound % 2 !== 0 ) {
-                gameBoardObject.gameBoard[i] = gameBoardObject.player;
-            } else if (i === selectedDivId && gameBoardObject.gameBoard[i] == '') {
-                gameBoardObject.gameBoard[i] = gameBoardObject.opponent;
+            if (i === selectedDivId && gameBoardObject.gameBoard[i] == '' && this.compChoice == '' && this.currentRound % 2 !== 0) {
+                this.gameBoard[i] = this.player;
+            } else if (i === selectedDivId && gameBoardObject.gameBoard[i] == '' && this.compChoice == '') {
+                this.gameBoard[i] = this.opponent;
+            } else if (i === selectedDivId && this.compChoice !== '' && this.currentRound % 2 == 0) {
+                this.gameBoard[i] = this.player; 
             }
+            // else if (i === selectedDivId && compChoice !== '' && this.currentRound % 2 !== 0) {
+            //     this.gameBoard[i] = this.player
+            // }
         }
         displayController.detectWinner();
-    }
+    },
 };
 
 const displayController = {
@@ -50,12 +90,14 @@ const displayController = {
         gameBoardObject.player = 'O';
         gameBoardObject.opponent = 'X';
     },
+    computerOpponent: function () {
+        gameBoardObject.compChoice = 'AI'
+    },
     winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
-        const boardArray = gameBoardObject.gameBoard; //shortened reference
+        const boardArray = gameBoardObject.gameBoard;
         this.winConditions.forEach(i=>{
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
-                // document.getElementById('gameOutcome').innerText = `The winner is ${boardArray[i[0]]}`;
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
                 if(gameBoardObject.winner == gameBoardObject.player) {
@@ -86,10 +128,10 @@ const displayController = {
         document.getElementById('playerSelectX').style.display = 'flex';
         document.getElementById('playerSelectO').style.display = 'flex';
         document.getElementById('startGame').style.display = 'flex';
+        document.getElementById('computerOpponent').style.display = 'flex';
         document.getElementById('newGame').style.display = 'none';
         document.getElementById('gameOutcome').innerText = '';
         document.getElementById('gameDisplay').style.display = 'none';
-
     }, 
     hideOnLoad: window.onload = function () {
         document.getElementById('gameDisplay').style.display = 'none';
@@ -100,8 +142,8 @@ const displayController = {
             document.getElementById('playerSelectX').style.display = 'none';
             document.getElementById('playerSelectO').style.display = 'none';
             document.getElementById('startGame').style.display = 'none'
+            document.getElementById('computerOpponent').style.display = 'none';
             document.getElementById('gameDisplay').style.display = 'flex';
         }
     },
 }
-
