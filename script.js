@@ -1,5 +1,7 @@
 // To-Do: Modify game winning message 
 //If playing against AI, player chooses final space: the winning space, and it (incorrectly) says its a tie
+// The reason for this is because my tie outcome conditional statement checks if gameBoard has no empty spaces, 
+// error only occurs sometimes, why?
 
 
 const gameBox = document.querySelectorAll('.gameBox');
@@ -23,15 +25,12 @@ const gameBoardObject = {
         const correspondingUserIndex = this.emptySlots.indexOf(selectedDivId)
         //inserts choice into div && counts rounds
         if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && compChoice == '') {
-            console.log(selectedDivId);
             this.emptySlots.splice(correspondingUserIndex, 1);
-            console.log(this.emptySlots);
             
             selectedDiv.innerText = gameBoardObject.player;
             this.currentRound += 1;
         } else if (selectedDiv.innerText == '' && compChoice == '') {    
             this.emptySlots.splice(correspondingUserIndex, 1);
-            
 
             selectedDiv.innerText = gameBoardObject.opponent;
             this.currentRound += 1;
@@ -42,11 +41,7 @@ const gameBoardObject = {
             const randomChoice = this.emptySlots[Math.floor(Math.random() * this.emptySlots.length)];
             const correspondingCompIndex = this.emptySlots.indexOf(randomChoice)
 
-            // const compSelection = randomChoice();
-
-            console.log(randomChoice);
-
-            //randomly places selections
+            //randomly places AI selection
            for (let i=0; i < gameBoardObject.gameBoard.length; i++) { 
                 if (gameBox[i].id == randomChoice) {
                     gameBoardObject.gameBoard[i] = gameBoardObject.opponent;
@@ -77,9 +72,6 @@ const gameBoardObject = {
             } else if (i === selectedDivId && this.compChoice !== '' && this.currentRound % 2 == 0) {
                 this.gameBoard[i] = this.player; 
             }
-            // else if (i === selectedDivId && compChoice !== '' && this.currentRound % 2 !== 0) {
-            //     this.gameBoard[i] = this.player
-            // }
         }
         displayController.detectWinner();
     },
@@ -101,10 +93,10 @@ const displayController = {
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard;
         this.winConditions.forEach(i=>{
-            if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]] && gameBoardObject.winner == '') {
+            if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]] && gameBoardObject.winner == '') {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
-                if(gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
+                if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
                     document.getElementById('gameOutcome').innerText = `Player 1 wins!`;
                 } else if (gameBoardObject.winner == gameBoardObject.opponent && gameBoardObject.compChoice == '') {
                     document.getElementById('gameOutcome').innerText = `Player 2 wins!`; 
@@ -140,7 +132,7 @@ const displayController = {
         document.getElementById('playerSelectX').style.display = 'flex';
         document.getElementById('playerSelectO').style.display = 'flex';
         document.getElementById('startGame').style.display = 'flex';
-        document.getElementById('computerOpponent').style.display = 'flex';
+        document.getElementById('computerOpponent').style.display = 'initial';
         document.getElementById('newGame').style.display = 'none';
         document.getElementById('gameOutcome').innerText = '';
         document.getElementById('gameDisplay').style.display = 'none';
