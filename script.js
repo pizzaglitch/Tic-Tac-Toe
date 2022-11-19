@@ -48,13 +48,17 @@ const gameBoardObject = {
 
             //randomly places selections
            for (let i=0; i < gameBoardObject.gameBoard.length; i++) { 
-                    if (gameBox[i].id == randomChoice) {
-                        gameBoardObject.gameBoard[i] = gameBoardObject.opponent;
-                        gameBox[i].innerText = gameBoardObject.opponent;
-                        this.emptySlots.splice(correspondingCompIndex, 1);
+                if (gameBox[i].id == randomChoice) {
+                    gameBoardObject.gameBoard[i] = gameBoardObject.opponent;
+                    gameBox[i].innerText = gameBoardObject.opponent;
+                    this.emptySlots.splice(correspondingCompIndex, 1);
+                    if (gameBoardObject.opponent == 'X') {
+                        gameBox[i].style.color = '#1887db';
+                    } else {
+                        gameBox[i].style.color = '#e03c26';
                     }
+                }
            }
-
         };
 
         // Specify color of selection, blue for 'x', red for 'o'
