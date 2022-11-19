@@ -1,5 +1,5 @@
 // To-Do: Modify game winning message 
-//Empty slots splice works. 
+//If playing against AI, player chooses final space: the winning space, and it (incorrectly) says its a tie
 
 
 const gameBox = document.querySelectorAll('.gameBox');
@@ -58,9 +58,9 @@ const gameBoardObject = {
         };
 
         // Specify color of selection, blue for 'x', red for 'o'
-        if (selectedDiv.innerText == 'X' && gameBoardObject.player !== '') {
+        if (selectedDiv.innerText == 'X' && this.player == 'X') {
             selectedDiv.style.color = '#1887db';
-        } else if (selectedDiv.innerText == 'O' && gameBoardObject.player !== '') {
+        } else {
             selectedDiv.style.color = '#e03c26';
         }
 
@@ -97,7 +97,7 @@ const displayController = {
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard;
         this.winConditions.forEach(i=>{
-            if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
+            if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]] && gameBoardObject.winner == '') {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
                 if(gameBoardObject.winner == gameBoardObject.player) {
@@ -109,7 +109,7 @@ const displayController = {
                 document.getElementById('gameOutcome').innerText = "It's a tie.";
                 gameBoardObject.winner = 'none';
                 document.getElementById('newGame').style.display = 'flex';  
-            } else if (!boardArray.includes('') && gameBoardObject.winner !== '') {
+            } else if (gameBoardObject.winner !== '') {
             return
             }
         })
@@ -117,14 +117,17 @@ const displayController = {
     newGame: function() {
         for (let i=0; i < gameBox.length; i++) {
             gameBox[i].innerText = '';
+            gameBox[i].style.color = '';
         };
         gameBoardObject.gameBoard = ['','','',
-                                     '','','',
-                                     '','','']; 
+                        '','','',
+                        '','','']; 
+        gameBoardObject.emptySlots = [0,1,2,3,4,5,6,7,8];  
         gameBoardObject.player = '';
         gameBoardObject.opponent = '';
         gameBoardObject.currentRound = 0;  
         gameBoardObject.winner = '';  
+        gameBoardObject.compChoice = '';
         document.getElementById('playerSelectX').style.display = 'flex';
         document.getElementById('playerSelectO').style.display = 'flex';
         document.getElementById('startGame').style.display = 'flex';
