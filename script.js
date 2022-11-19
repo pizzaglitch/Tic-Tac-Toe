@@ -100,10 +100,15 @@ const displayController = {
             if(boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]] && gameBoardObject.winner == '') {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
-                if(gameBoardObject.winner == gameBoardObject.player) {
+                if(gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
                     document.getElementById('gameOutcome').innerText = `Player 1 wins!`;
+                } else if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
+                    document.getElementById('gameOutcome').innerText = `Player 2 wins!`; 
+                } else if (gameBoardObject.winner == gameBoardObject.player) {
+                    document.getElementById('gameOutcome').innerText = `Human wins!`;
                 } else {
-                    document.getElementById('gameOutcome').innerText = `Player 2 wins!`;
+                    document.getElementById('gameOutcome').innerText = `Computer wins!`;
+
                 }
             } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
                 document.getElementById('gameOutcome').innerText = "It's a tie.";
