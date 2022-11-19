@@ -91,29 +91,30 @@ const displayController = {
     winConditions: [[0,1,2], [3,4,5], [6,7,8], [0,4,8], [2,4,6], [0,3,6], [1,4,7], [2,5,8]],
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard;
+        const gameOutcome = document.getElementById('gameOutcome');
         this.winConditions.forEach(i=>{
             if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
-                if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
-                    document.getElementById('gameOutcome').innerText = `Player 1 wins!`;
-                } else if (gameBoardObject.winner == gameBoardObject.opponent && gameBoardObject.compChoice == '') {
-                    document.getElementById('gameOutcome').innerText = `Player 2 wins!`; 
-                } else if (gameBoardObject.winner == gameBoardObject.player) {
-                    document.getElementById('gameOutcome').innerText = `Human wins!`;
-                } else if (gameBoardObject.winner == gameBoardObject.opponent) {
-                    document.getElementById('gameOutcome').innerText = `Computer wins!`;
+                if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '' && gameOutcome.innerText == '') {
+                    gameOutcome.innerText = `Player 1 wins!`;
+                } else if (gameBoardObject.winner == gameBoardObject.opponent && gameBoardObject.compChoice == '' && gameOutcome.innerText == '') {
+                    gameOutcome.innerText = `Player 2 wins!`; 
+                } else if (gameBoardObject.winner == gameBoardObject.player && gameOutcome.innerText == '') {
+                    gameOutcome.innerText = `Human wins!`;
+                } else if (gameBoardObject.winner == gameBoardObject.opponent && gameOutcome.innerText == '') {
+                    gameOutcome.innerText = `Computer wins!`;
 
                 }
             } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
-                document.getElementById('gameOutcome').innerText = "It's a tie.";
+                gameOutcome.innerText = "It's a tie.";
                 gameBoardObject.winner = 'none';
                 document.getElementById('newGame').style.display = 'flex';  
             } 
             //may not need this
-            // else if (gameBoardObject.winner !== '') {
-            // return
-            // }
+            else if (gameBoardObject.winner !== '') {
+            return
+            }
         })
     },
     newGame: function() {
@@ -135,7 +136,7 @@ const displayController = {
         document.getElementById('startGame').style.display = 'flex';
         document.getElementById('computerOpponent').style.display = 'initial';
         document.getElementById('newGame').style.display = 'none';
-        document.getElementById('gameOutcome').innerText = '';
+        gameOutcome.innerText = '';
         document.getElementById('gameDisplay').style.display = 'none';
     }, 
     hideOnLoad: window.onload = function () {
