@@ -2,6 +2,7 @@
 //If playing against AI, player chooses final space: the winning space, and it (incorrectly) says its a tie
 // The reason for this is because my tie outcome conditional statement checks if gameBoard has no empty spaces, 
 // error only occurs sometimes, why?
+//tie game is broken
 
 
 const gameBox = document.querySelectorAll('.gameBox');
@@ -93,7 +94,7 @@ const displayController = {
     detectWinner: function() {
         const boardArray = gameBoardObject.gameBoard;
         this.winConditions.forEach(i=>{
-            if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]] && gameBoardObject.winner == '') {
+            if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
                 if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '') {
@@ -110,9 +111,11 @@ const displayController = {
                 document.getElementById('gameOutcome').innerText = "It's a tie.";
                 gameBoardObject.winner = 'none';
                 document.getElementById('newGame').style.display = 'flex';  
-            } else if (gameBoardObject.winner !== '') {
-            return
-            }
+            } 
+            //may not need this
+            // else if (gameBoardObject.winner !== '') {
+            // return
+            // }
         })
     },
     newGame: function() {
