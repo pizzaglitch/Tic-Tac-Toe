@@ -57,7 +57,7 @@ const gameBoardObject = {
         };
 
         // Specify color of selection, blue for 'x', red for 'o'
-        if (selectedDiv.innerText == 'X' && this.player == 'X') {
+        if (selectedDiv.innerText == 'X') {
             selectedDiv.style.color = '#1887db';
         } else {
             selectedDiv.style.color = '#e03c26';
