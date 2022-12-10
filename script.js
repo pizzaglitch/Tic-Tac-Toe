@@ -104,7 +104,6 @@ const displayController = {
                     gameOutcome.innerText = `Human wins!`;
                 } else if (gameBoardObject.winner == gameBoardObject.opponent && gameOutcome.innerText == '') {
                     gameOutcome.innerText = `Computer wins!`;
-
                 }
             } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
                 gameOutcome.innerText = "It's a tie.";
