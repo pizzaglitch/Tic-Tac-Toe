@@ -2,6 +2,9 @@
 // If playing against AI: two slots left. If either player or AI chooses, either of them will win. Player's turn and they choose
 // a winning piece: they should win. However, if AI chooses their winning spot after, updates to computer win
 // unsure how to test for this
+// says it's a tie if last choice is a winning move, incorrect. should display winner
+// ^^ fixed. Problem was that win condition only checked for winner / tie if gameboard.length was > 0. On tie, it is 0, wouldn't check. 
+// solution was to check for tie prior to checking for win condition
 
 const gameBox = document.querySelectorAll('.gameBox');
 const gameBoxArray = [...gameBox];
@@ -24,13 +27,11 @@ const gameBoardObject = {
         const correspondingUserIndex = this.emptySlots.indexOf(selectedDivId)
         //inserts choice into div && counts rounds
         if (selectedDiv.innerText == '' && this.currentRound % 2 == 0 && compChoice == '') {
-            this.emptySlots.splice(correspondingUserIndex, 1);
-            
+            this.emptySlots.splice(correspondingUserIndex, 1); 
             selectedDiv.innerText = gameBoardObject.player;
             this.currentRound += 1;
         } else if (selectedDiv.innerText == '' && compChoice == '') {    
             this.emptySlots.splice(correspondingUserIndex, 1);
-
             selectedDiv.innerText = gameBoardObject.opponent;
             this.currentRound += 1;
         } else if (compChoice !== '') {
@@ -93,9 +94,14 @@ const displayController = {
         const boardArray = gameBoardObject.gameBoard;
         const gameOutcome = document.getElementById('gameOutcome');
         this.winConditions.forEach(i=>{
-            if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
+            if (gameBoardObject.emptySlots.length === 0 && gameBoardObject.winner == '') {
+                gameOutcome.innerText = "It's a tie.";
+                document.getElementById('newGame').style.display = 'flex';  
+            }
+            else if (boardArray[i[0]].length > 0 && boardArray[i[0]] === boardArray[i[1]] && boardArray[i[1]] === boardArray[i[2]]) {
                 gameBoardObject.winner = `${boardArray[i[0]]}`;
                 document.getElementById('newGame').style.display = 'flex';  
+                
                 if (gameBoardObject.winner == gameBoardObject.player && gameBoardObject.compChoice == '' && gameOutcome.innerText == '') {
                     gameOutcome.innerText = `Player 1 wins!`;
                 } else if (gameBoardObject.winner == gameBoardObject.opponent && gameBoardObject.compChoice == '' && gameOutcome.innerText == '') {
@@ -104,15 +110,10 @@ const displayController = {
                     gameOutcome.innerText = `Human wins!`;
                 } else if (gameBoardObject.winner == gameBoardObject.opponent && gameOutcome.innerText == '') {
                     gameOutcome.innerText = `Computer wins!`;
-                }
-            } else if (!boardArray.includes('') && gameBoardObject.winner == '') {
-                gameOutcome.innerText = "It's a tie.";
-                gameBoardObject.winner = 'none';
-                document.getElementById('newGame').style.display = 'flex';  
-            } 
-            //may not need this
-            else if (gameBoardObject.winner !== '') {
-            return
+                } else if (gameBoardObject.emptySlots.length === 0 && gameBoardObject.winner == '') {
+                    gameOutcome.innerText = "It's a tie.";
+                    document.getElementById('newGame').style.display = 'flex'; 
+                } 
             }
         })
     },
