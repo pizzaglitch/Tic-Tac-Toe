@@ -34,7 +34,7 @@ const gameBoardObject = {
             this.emptySlots.splice(correspondingUserIndex, 1);
             selectedDiv.innerText = gameBoardObject.opponent;
             this.currentRound += 1;
-        } else if (compChoice !== '') {
+        } else if (compChoice !== '' && selectedDiv.innerText == '') {
             this.currentRound += 2;
             selectedDiv.innerText = gameBoardObject.player;
             this.emptySlots.splice(correspondingUserIndex, 1);
